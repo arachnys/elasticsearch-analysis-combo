@@ -27,8 +27,6 @@ import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.env.Environment;
 import org.elasticsearch.index.IndexSettings;
 import org.elasticsearch.indices.analysis.AnalysisModule;
-import org.elasticsearch.plugins.AnalysisPlugin;
-import org.elasticsearch.plugins.PluginsService;
 
 import java.io.IOException;
 import java.util.Collections;
@@ -42,7 +40,6 @@ public class ComboAnalyzerProvider extends AbstractIndexAnalyzerProvider<ComboAn
     private final Environment environment;
     private final Settings analyzerSettings;
     private final String name;
-    private final PluginsService pluginsService;
 
     public ComboAnalyzerProvider(IndexSettings indexSettings, Environment environment, String name, Settings settings) {
         super(indexSettings, name, settings);
@@ -53,15 +50,6 @@ public class ComboAnalyzerProvider extends AbstractIndexAnalyzerProvider<ComboAn
         this.environment = environment;
         this.analyzerSettings = settings;
         this.name = name;
-
-        // TODO: Way to get List<AnalysisPlugin> without loading all plugins by yourself?
-        // Here because in get we get a plugin loading loop
-        this.pluginsService = new PluginsService(
-            environment.settings(),
-            environment.modulesFile(),
-            environment.pluginsFile(),
-            Collections.emptyList() // TODO: from where should I take classpath for plugins?
-        );
     }
 
     @Override
@@ -80,7 +68,7 @@ public class ComboAnalyzerProvider extends AbstractIndexAnalyzerProvider<ComboAn
     private IndexAnalyzers getIndexAnalyzers(Environment environment) throws IOException {
         final AnalysisModule analysisModule = new AnalysisModule(
             environment,
-            pluginsService.filterPlugins(AnalysisPlugin.class)
+            Collections.emptyList()
         );
 
         final AnalysisRegistry analysisRegistry = analysisModule.getAnalysisRegistry();
