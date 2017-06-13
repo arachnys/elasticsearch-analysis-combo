@@ -1,6 +1,10 @@
-Elasticsearch Combo Analyzer
+Fork info
 ============================
 
+When having problem with jna use -Djna.nosys=true
+
+Elasticsearch Combo Analyzer
+============================
 The Combo Analyzer plugin provides with a new analyzer type that combines the output of multiple analyzers into one.
 
 Installation
