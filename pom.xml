@@ -6,7 +6,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.yakaz.elasticsearch.plugins</groupId>
     <artifactId>elasticsearch-analysis-combo</artifactId>
-    <version>2.3.5-SNAPSHOT</version>
+    <version>${elasticsearch.version}</version>
     <packaging>jar</packaging>
     <inceptionYear>2011</inceptionYear>
     <licenses>
