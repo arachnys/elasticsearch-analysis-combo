@@ -1,0 +1,5 @@
+grant {
+	// Just set all of the permissions, since otherwise Maven complains about *everything*
+	// and won't build at all
+	permission java.security.AllPermission;
+};
